@@ -20,6 +20,6 @@ public class FlightServiceImpl implements FlightService {
 
     @Override
     public List<Flight> query(String originCity, String destCity, String date, String travelers, String tripType, String stops) {
-
+        return null;
     }
 }
