@@ -1,10 +1,92 @@
 <!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Title</title>
+  <title>Home</title>
+  <link rel="stylesheet" href="layui/css/layui.css" th:href="@{/layui/css/layui.css}" media="all">
 </head>
 <body>
-  <h1>home page</h1>
+
+<div class="layui-container" style="margin-top: 50px;">
+  <div class="layui-container" style="width: 500px;height: 330px;padding-top: 60px;">
+    <form class="layui-form" action="/flights/search" method="GET">
+      <div class="layui-form-item">
+        <label class="layui-form-label">Flying from: </label>
+        <div class="layui-inline">
+          <input type="text" name="originCity" lay-verify="required" autocomplete="off" placeholder="Origin City" class="layui-input">
+        </div>
+      </div>
+      <div class="layui-form-item">
+        <label class="layui-form-label">Going to: </label>
+        <div class="layui-inline">
+          <input type="text" name="destCity" lay-verify="required" autocomplete="off" placeholder="Destination City" class="layui-input">
+        </div>
+      </div>
+      <div class="layui-form-item">
+        <label class="layui-form-label">Departing: </label>
+        <div class="layui-inline">
+          <input type="text" name="date" lay-verify="required" placeholder="Date: mm-dd-yyyy" autocomplete="off" class="layui-input">
+        </div>
+      </div>
+      <div class="layui-form-item">
+        <label class="layui-form-label">Travelers: </label>
+        <div class="layui-inline">
+          <input type="text" name="travelers" lay-verify="required" placeholder="1 Adult" autocomplete="off" class="layui-input">
+        </div>
+      </div>
+
+      <div class="layui-form-item">
+        <label class="layui-form-label">Trip Type:</label>
+        <div class="layui-input-block">
+          <input type="radio" name="tripType" value="roundtrip" title="Roundtrip" checked>
+          <input type="radio" name="tripType" value="oneway" title="Oneway">
+        </div>
+      </div>
+
+      <div class="layui-form-item">
+        <label class="layui-form-label">Nonstop:</label>
+        <div class="layui-input-block">
+          <input type="radio" name="stops" value="0" title="Nonstop" checked>
+          <input type="radio" name="stops" value="1" title="1 stop">
+          <input type="radio" name="stops" value="2" title="2+ stops">
+        </div>
+      </div>
+
+      <div class="layui-form-item">
+        <button class="layui-btn" lay-submit="" lay-filter="demo2" style="margin-left: 160px;">Search</button>
+      </div>
+    </form>
+
+  </div>
+</div>
+<script src="layui/layui.js" th:src="@{/layui/layui.js}" charset="utf-8"></script>
+<script>
+    layui.use(['form', 'element'], function(){
+        var form = layui.form;
+        var element = layui.element;
+
+        //自定义验证规则
+        form.verify({
+            price: [/(^[1-9]([0-9]+)?(\.[0-9]{1,2})?$)|(^(0){1}$)|(^[0-9]\.[0-9]([0-9])?$)/, "请输入正确的价格"]
+        });
+
+    });
+</script>
+<script>
+    //Demo
+    layui.use('form', function(){
+        var form = layui.form;
+
+        //监听提交
+        form.on('submit(formDemo)', function(data){
+            layer.msg(JSON.stringify(data.field));
+            return false;
+        });
+    });
+</script>
+<script>
+
+</script>
 </body>
 </html>
