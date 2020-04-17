@@ -3,9 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Search</title>
+  <title>Home</title>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/semantic-ui/2.2.4/semantic.min.css" >
-  <link rel="stylesheet" href="css/me.css">
+  <link rel="stylesheet" href="../static/css/me.css" th:href="@{/css/me.css}">
 </head>
 <body>
 <nav class="ui inverted attached segment m-padded-tb-mini m-shadow-small" >
@@ -129,7 +129,7 @@
               <h3 class="ui yellow header">Searching flights to $destCity</h3>
             </div>
             <div class="right aligned column">
-              Total: <h2 class="ui orange header m-inline-block m-text-thin" th:text="${page.totalElements}"> 99 </h2> flights
+              Total: <h2 class="ui orange header m-inline-block m-text-thin" > 99 </h2> flights
             </div>
           </div>
         </div>
@@ -535,13 +535,13 @@
         </div>
 
         <!-- bottom -->
-        <div class="ui bottom attached segment" th:if="${page.totalPages}>1">
+        <div class="ui bottom attached segment" >
           <div class="ui middle aligned two column grid">
             <div class="column">
-              <a href="#" th:href="@{/(page=${page.number}-1)}"  th:unless="${page.first}" class="ui mini yellow basic button">Previous</a>
+              <a href="#" class="ui mini yellow basic button">Previous</a>
             </div>
             <div class="right aligned column">
-              <a href="#" th:href="@{/(page=${page.number}+1)}"  th:unless="${page.last}" class="ui mini yellow basic button">Next</a>
+              <a href="#" class="ui mini yellow basic button">Next</a>
             </div>
           </div>
         </div>
@@ -595,10 +595,8 @@
   </div>
 </footer>
 
-<!--/*/<th:block th:replace="_fragments :: script">/*/-->
 <script src="https://cdn.jsdelivr.net/npm/jquery@3.2/dist/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/semantic-ui/2.2.4/semantic.min.js"></script>
-<!--/*/</th:block>/*/-->
 
 <script>
     $('.menu.toggle').click(function () {

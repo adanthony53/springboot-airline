@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Home</title>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/semantic-ui/2.2.4/semantic.min.css" >
-  <link rel="stylesheet" href="css/me.css">
+  <link rel="stylesheet" href="../static/css/me.css" th:href="@{/css/me.css}">
 </head>
 <body>
 <nav class="ui inverted attached segment m-padded-tb-mini m-shadow-small" >
@@ -28,18 +28,12 @@
             Register
           </div>
         </h2>
-        <form class="ui large form" method="post" action="#" th:action="@{/admin/login}">
-          <div class="ui  segment">
+        <form class="ui large form" method="post" action="#" th:action="@{/user/register}">
+          <div class="ui segment">
             <div class="field">
               <div class="ui left icon input">
                 <i class="user icon"></i>
                 <input type="text" name="username" placeholder="Username">
-              </div>
-            </div>
-            <div class="field">
-              <div class="ui left icon input">
-                <i class="user icon"></i>
-                <input type="password" name="realname" placeholder="Realname">
               </div>
             </div>
             <div class="field">
@@ -49,7 +43,7 @@
               </div>
             </div>
             <div class="field">
-              <a class="ui fluid large yellow submit button">Register</a>
+              <button class="ui fluid large yellow submit button">Register</button>
             </div>
           </div>
         </form>
@@ -122,10 +116,10 @@
   </div>
 </footer>
 
-<!--/*/<th:block th:replace="_fragments :: script">/*/-->
+
 <script src="https://cdn.jsdelivr.net/npm/jquery@3.2/dist/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/semantic-ui/2.2.4/semantic.min.js"></script>
-<!--/*/</th:block>/*/-->
+
 
 <script>
     $('.menu.toggle').click(function () {
