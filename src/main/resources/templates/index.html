@@ -7,13 +7,13 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/semantic-ui/2.2.4/semantic.min.css" >
   <link rel="stylesheet" href="../static/css/me.css" th:href="@{/css/me.css}">
 </head>
+</head>
 <body>
 <nav class="ui inverted attached segment m-padded-tb-mini m-shadow-small" >
   <div class="ui container">
     <div class="ui inverted secondary stackable menu">
       <h2 class="ui yellow header item">Tickets</h2>
-      <a href="#" class="active m-item item m-mobile-hide">Browse</a>
-      <a href="#" class="m-item item m-mobile-hide">Search</a>
+      <a href="#" class="active m-item item m-mobile-hide">Search</a>
       <a href="#" class="m-item item m-mobile-hide">Detail</a>
       <div class="ui dropdown right m-item item m-mobile-hide">
         Account <i class="dropdown icon"></i>
@@ -32,47 +32,83 @@
         <div class="ui top attached segment">
           <div class="ui middle aligned two column grid">
             <div class="column">
-              <h3 class="ui teal header">Blog</h3>
-            </div>
-            <div class="right aligned column">
-              Total: <h2 class="ui orange header m-inline-block m-text-thin" > 99 </h2> blogs
+              <h3 class="ui yellow header">Search</h3>
             </div>
           </div>
         </div>
 
         <!-- content -->
-
-
-        <!-- bottom -->
-
+        <div class="ui attached segment">
+          <div class="ui padded vertical segment m-padded-tb-large">
+            <div class="ui middle aligned mobile reversed stackable grid">
+              <form class="ui form" method="post" action="#" th:action="@{/flights/search}">
+                <div class="field">
+                  <label>Flying from: </label>
+                  <input type="text" name="originCity" placeholder="Origin city">
+                </div>
+                <div class="field">
+                  <label>Going to: </label>
+                  <input type="text" name="destCity" placeholder="Destination city">
+                </div>
+                <div class="field">
+                  <label>Departing: </label>
+                  <input type="text" name="date" placeholder="MM-DD-YYYY">
+                </div>
+                <div class="field">
+                  <label>Travelers: </label>
+                  <select class="ui fluid dropdown" type="text" name="travelers">
+                    <option value="1">Number</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                    <option value="7">7</option>
+                    <option value="8">8</option>
+                    <option value="9">9</option>
+                    <option value="10">10+</option>
+                  </select>
+                </div>
+                <div class="field">
+                  <label>Stops: </label>
+                  <select class="ui fluid dropdown" type="text" name="stops">
+                    <option value="0">Number</option>
+                    <option value="0">Nonstop</option>
+                    <option value="1">1</option>
+                    <option value="2">2+</option>
+                  </select>
+                </div>
+                <button class="ui yellow button" type="submit">Search</button>
+              </form>
+            </div>
+          </div>
+        </div>
       </div>
 
       <!-- right -->
       <div class="five wide column">
+        <!-- Recommendation -->
+        <div class="ui segments ">
+          <div class="ui secondary segment">
+            <i class="bookmark icon"></i>Mobile App
+          </div>
+          <div class="ui segment" >
+            <p>Scan out QRcode below, get a chance to win an ultimate award with a free trip to the Panama!</p>
+          </div>
+
+        </div>
 
         <!-- QRcode -->
-        <h4 class="ui horizontal divider header"> Check out my Github </h4>
+        <h4 class="ui horizontal divider header"> 带带大师兄 </h4>
         <div class="ui centered card" style="width: 11em">
-          <img src="../static/images/icon.png" th:src="@{/images/icon.png}" alt="" class="ui rounded image" >
+          <img src="../static/images/icon2.png" th:src="@{/images/icon2.png}" alt="" class="ui rounded image" style="width: 250px">
+          <img src="../static/images/twitch.png" th:src="@{/images/twitch.png}" alt="" class="ui rounded image" >
         </div>
       </div>
     </div>
   </div>
 </div>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
 <br>
 <br>
 <br>
@@ -122,10 +158,8 @@
   </div>
 </footer>
 
-
 <script src="https://cdn.jsdelivr.net/npm/jquery@3.2/dist/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/semantic-ui/2.2.4/semantic.min.js"></script>
-
 
 <script>
     $('.menu.toggle').click(function () {
