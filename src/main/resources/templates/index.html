@@ -73,10 +73,20 @@
                 <div class="field">
                   <label>Stops: </label>
                   <select class="ui fluid dropdown" type="text" name="stops">
-                    <option value="0">Number</option>
+                    <option value="0">Stops</option>
                     <option value="0">Nonstop</option>
                     <option value="1">1</option>
                     <option value="2">2+</option>
+                  </select>
+                </div>
+                <div class="field">
+                  <label>Sort: </label>
+                  <select class="ui fluid dropdown" type="text" name="sort">
+                    <option value="0">Sort</option>
+                    <option value="1">Price (Lowest first)</option>
+                    <option value="2">Price (Highest first)</option>
+                    <option value="3">Duration (Lowest first)</option>
+                    <option value="4">Duration (Highest first)</option>
                   </select>
                 </div>
                 <button class="ui yellow button" type="submit">Search</button>
@@ -162,9 +172,7 @@
 <script src="https://cdn.jsdelivr.net/semantic-ui/2.2.4/semantic.min.js"></script>
 
 <script>
-    $('.menu.toggle').click(function () {
-        $('.m-item').toggleClass('m-mobile-hide');
-    });
+    $('.ui.dropdown').dropdown();
 </script>
 </body>
 </html>

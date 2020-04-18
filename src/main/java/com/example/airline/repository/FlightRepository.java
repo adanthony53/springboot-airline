@@ -8,5 +8,14 @@ import java.util.List;
 public interface FlightRepository {
     Flight findByFlightNum(Integer flight_num);
 
-    List<Flight> query1(@Param("originCity") String originCity, @Param("destCity") String destCity, @Param("day") Integer day);
+    List<Flight> queryDefault(@Param("originCity") String originCity, @Param("destCity") String destCity,
+                        @Param("day") Integer day, @Param("travelers") Integer travelers);
+
+    List<Flight> queryPriceLowestFirst(String originCity, String destCity, int day, int travelers);
+
+    List<Flight> queryPriceHighestFirst(String originCity, String destCity, int day, int travelers);
+
+    List<Flight> queryDurationLowestFirst(String originCity, String destCity, int day, int travelers);
+
+    List<Flight> queryDurationHighestFirst(String originCity, String destCity, int day, int travelers);
 }

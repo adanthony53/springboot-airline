@@ -24,151 +24,93 @@
 <!--    Middle Content    -->
 <div class="m-container m-padded-tb-big">
   <div class="ui container">
-    <div class="ui stackable grid">
-      <!-- left more condition to query -->
-      <div class="five wide column">
-
-        <!-- Types -->
-        <div class="ui segments">
-          <div class="ui secondary segment">
-            <div class="ui two column grid">
-              <div class="column"><i class="idea icon"></i>More details</div>
-            </div>
-          </div>
-          <div class="ui yellow segment">
-            <div class="ui dropdown fluid vertical menu" >
-              <div href="#" class="item">
-                <span>Sort</span>
-                <i class="dropdown icon"></i>
-              </div>
-            </div>
-          </div>
-          <div class="ui segment">
-            <div class="ui list">
-              <h5>Departure time</h5>
-              <li>
-                <div class="ui master checkbox">
-                  <input type="checkbox" name="depart-morning">
-                  <label>00:00-07:59</label>
-                </div>
-              </li>
-              <li>
-                <div class="ui master checkbox">
-                  <input type="checkbox" name="depart-afternoon">
-                  <label>09:00-15:59</label>
-                </div>
-              </li>
-              <li>
-                <div class="ui master checkbox">
-                  <input type="checkbox" name="depart-night">
-                  <label>16:00-23:59</label>
-                </div>
-              </li>
-            </div>
-          </div>
-          <div class="ui segment">
-            <div class="ui list">
-              <h5>Arrival time</h5>
-              <li>
-                <div class="ui master checkbox">
-                  <input type="checkbox" name="arrive-morning">
-                  <label>00:00-07:59</label>
-                </div>
-              </li>
-              <li>
-                <div class="ui master checkbox">
-                  <input type="checkbox" name="arrive-afternoon">
-                  <label>09:00-15:59</label>
-                </div>
-              </li>
-              <li>
-                <div class="ui master checkbox">
-                  <input type="checkbox" name="arrive-night">
-                  <label>16:00-23:59</label>
-                </div>
-              </li>
-            </div>
-          </div>
-          <div class="ui segment">
-            <div class="ui list">
-              <h5>Stops</h5>
-              <li>
-                <div class="ui master checkbox">
-                  <input type="checkbox" name="nonstop">
-                  <label>Nonstop</label>
-                </div>
-              </li>
-              <li>
-                <div class="ui master checkbox">
-                  <input type="checkbox" name="1stop">
-                  <label>1 stop</label>
-                </div>
-              </li>
-              <li>
-                <div class="ui master checkbox">
-                  <input type="checkbox" name="2stop">
-                  <label>2+ stop</label>
-                </div>
-              </li>
-            </div>
-          </div>
-          <div class="ui segment">
-            <a href="#" class="ui yellow button">Search</a>
-          </div>
+    <form class="ui secondary segment form" method="post" action="#" th:action="@{/flights/searchUpdate}">
+      <input type="hidden" name="page">
+      <div class="inline fields">
+        <input type="hidden" name="originCity" th:value="${originCity}">
+        <input type="hidden" name="destCity" th:value="${destCity}">
+        <input type="hidden" name="date" th:value="${date}">
+        <div class="field">
+          <select class="ui dropdown" type="text" name="sort">
+            <option value="0">Sort</option>
+            <option value="1">Price (Lowest first)</option>
+            <option value="2">Price (Highest first)</option>
+            <option value="3">Duration (Lowest first)</option>
+            <option value="4">Duration (Highest first)</option>
+          </select>
         </div>
-
+        <div class="field">
+          <select class="ui dropdown" type="text" name="stops">
+            <option value="0">Stops</option>
+            <option value="0">Nonstop</option>
+            <option value="1">1 stop</option>
+            <option value="2">2+ stops</option>
+          </select>
+        </div>
+        <div class="field">
+          <select class="ui dropdown" type="text" name="travelers">
+            <option value="1">Number</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+            <option value="7">7</option>
+            <option value="8">8</option>
+            <option value="9">9</option>
+            <option value="10">10+</option>
+          </select>
+        </div>
+        <div class="field">
+          <button type="submit" id="search-btn" class="ui mini yellow button"><i class="search icon"></i>Search</button>
+        </div>
       </div>
+    </form>
 
-      <!-- right searching result-->
-      <div class="eleven wide column">
+
+    <div class="ui stackable grid">
+      <!--  searching result-->
+
+      <div class="sixteen wide column">
         <!-- header -->
-        <div class="ui top attached segment">
+        <div class="ui attached segment">
           <div class="ui middle aligned two column grid">
             <div class="column">
-              <h3 class="ui yellow header">Searching flights to $destCity</h3>
+              <h3 class="ui yellow header" th:text="|Searching flights to ${flights[0].dest_city}|">Searching flights to $destCity</h3>
             </div>
             <div class="right aligned column">
-              Total: <h2 class="ui orange header m-inline-block m-text-thin" > 99 </h2> flights
+              Total: <h2 class="ui orange header m-inline-block m-text-thin" th:text="${#arrays.length(flights)}" >99</h2> flights
             </div>
           </div>
         </div>
 
         <!-- content -->
-        <div class="ui attached segment">
+        <div class="ui attached segment" th:each="flight : ${flights}">
           <div class="ui padded vertical segment m-padded-tb-large" >
-            <h4><span>SEA</span> - <span>456</span></h4>
+            <h2><span th:text="${flight.origin_city}">SEA</span> - <span th:text="${flight.dest_city}">456</span></h2>
             <div class="ui middle aligned mobile reversed stackable grid">
               <!-- depart time, arrival time, airlines -->
-              <div class="five wide column">
-                <div class="ui vertical link list">
-                  <div class="m-black item">
-                    <h3>7:40am - 4:01pm</h3>
-                  </div>
-                  <div class="item">
-                    <span>Delta</span>
-                  </div>
-                </div>
-              </div>
-
               <!-- duration, stops, origin city - dest city -->
-              <div class="five wide column">
+              <div class="twelve wide column">
                 <div class="ui vertical link list">
                   <div class="m-black item">
-                    <h3>5 Hours 21 Minutes</h3>
+                    <h3 th:with="hour = ${flight.actual_time / 60}, minute = ${flight.actual_time % 60}" th:text="|Trip duration: ${hour} Hours ${minute} Minutes|">5 Hours 21 Minutes</h3>
                   </div>
                   <div class="item">
                     <span>Nonstop</span>
                   </div>
+                  <div class="item">
+                    <span >Delta</span>
+                  </div>
                 </div>
               </div>
 
-              <div class="three wide column"></div>
-
               <!-- price, trip type, and select button -->
-              <div class="right aligned three wide column">
+              <div class="right aligned four wide column">
                 <div class="ui vertical link list">
                   <div class="item">
-                    $<span>199</span>
+                    $<span th:text="${flight.price}">199</span>
                   </div>
                   <div class="item">
                     <span>Oneway</span>
@@ -179,358 +121,7 @@
             </div>
 
           </div>
-          <div class="ui padded vertical segment m-padded-tb-large" >
-            <h4><span>SEA</span> - <span>456</span></h4>
-            <div class="ui middle aligned mobile reversed stackable grid">
-              <!-- depart time, arrival time, airlines -->
-              <div class="five wide column">
-                <div class="ui vertical link list">
-                  <div class="m-black item">
-                    <h3>7:40am - 4:01pm</h3>
-                  </div>
-                  <div class="item">
-                    <span>Delta</span>
-                  </div>
-                </div>
-              </div>
 
-              <!-- duration, stops, origin city - dest city -->
-              <div class="five wide column">
-                <div class="ui vertical link list">
-                  <div class="m-black item">
-                    <h3>5 Hours 21 Minutes</h3>
-                  </div>
-                  <div class="item">
-                    <span>Nonstop</span>
-                  </div>
-                </div>
-              </div>
-
-              <div class="three wide column"></div>
-
-              <!-- price, trip type, and select button -->
-              <div class="right aligned three wide column">
-                <div class="ui vertical link list">
-                  <div class="item">
-                    $<span>199</span>
-                  </div>
-                  <div class="item">
-                    <span>Oneway</span>
-                  </div>
-                </div>
-                <a href="#" class="ui yellow button">Select</a>
-              </div>
-            </div>
-
-          </div>
-          <div class="ui padded vertical segment m-padded-tb-large" >
-            <h4><span>SEA</span> - <span>456</span></h4>
-            <div class="ui middle aligned mobile reversed stackable grid">
-              <!-- depart time, arrival time, airlines -->
-              <div class="five wide column">
-                <div class="ui vertical link list">
-                  <div class="m-black item">
-                    <h3>7:40am - 4:01pm</h3>
-                  </div>
-                  <div class="item">
-                    <span>Delta</span>
-                  </div>
-                </div>
-              </div>
-
-              <!-- duration, stops, origin city - dest city -->
-              <div class="five wide column">
-                <div class="ui vertical link list">
-                  <div class="m-black item">
-                    <h3>5 Hours 21 Minutes</h3>
-                  </div>
-                  <div class="item">
-                    <span>Nonstop</span>
-                  </div>
-                </div>
-              </div>
-
-              <div class="three wide column"></div>
-
-              <!-- price, trip type, and select button -->
-              <div class="right aligned three wide column">
-                <div class="ui vertical link list">
-                  <div class="item">
-                    $<span>199</span>
-                  </div>
-                  <div class="item">
-                    <span>Oneway</span>
-                  </div>
-                </div>
-                <a href="#" class="ui yellow button">Select</a>
-              </div>
-            </div>
-
-          </div>
-          <div class="ui padded vertical segment m-padded-tb-large" >
-            <h4><span>SEA</span> - <span>456</span></h4>
-            <div class="ui middle aligned mobile reversed stackable grid">
-              <!-- depart time, arrival time, airlines -->
-              <div class="five wide column">
-                <div class="ui vertical link list">
-                  <div class="m-black item">
-                    <h3>7:40am - 4:01pm</h3>
-                  </div>
-                  <div class="item">
-                    <span>Delta</span>
-                  </div>
-                </div>
-              </div>
-
-              <!-- duration, stops, origin city - dest city -->
-              <div class="five wide column">
-                <div class="ui vertical link list">
-                  <div class="m-black item">
-                    <h3>5 Hours 21 Minutes</h3>
-                  </div>
-                  <div class="item">
-                    <span>Nonstop</span>
-                  </div>
-                </div>
-              </div>
-
-              <div class="three wide column"></div>
-
-              <!-- price, trip type, and select button -->
-              <div class="right aligned three wide column">
-                <div class="ui vertical link list">
-                  <div class="item">
-                    $<span>199</span>
-                  </div>
-                  <div class="item">
-                    <span>Oneway</span>
-                  </div>
-                </div>
-                <a href="#" class="ui yellow button">Select</a>
-              </div>
-            </div>
-
-          </div>
-          <div class="ui padded vertical segment m-padded-tb-large" >
-            <h4><span>SEA</span> - <span>456</span></h4>
-            <div class="ui middle aligned mobile reversed stackable grid">
-              <!-- depart time, arrival time, airlines -->
-              <div class="five wide column">
-                <div class="ui vertical link list">
-                  <div class="m-black item">
-                    <h3>7:40am - 4:01pm</h3>
-                  </div>
-                  <div class="item">
-                    <span>Delta</span>
-                  </div>
-                </div>
-              </div>
-
-              <!-- duration, stops, origin city - dest city -->
-              <div class="five wide column">
-                <div class="ui vertical link list">
-                  <div class="m-black item">
-                    <h3>5 Hours 21 Minutes</h3>
-                  </div>
-                  <div class="item">
-                    <span>Nonstop</span>
-                  </div>
-                </div>
-              </div>
-
-              <div class="three wide column"></div>
-
-              <!-- price, trip type, and select button -->
-              <div class="right aligned three wide column">
-                <div class="ui vertical link list">
-                  <div class="item">
-                    $<span>199</span>
-                  </div>
-                  <div class="item">
-                    <span>Oneway</span>
-                  </div>
-                </div>
-                <a href="#" class="ui yellow button">Select</a>
-              </div>
-            </div>
-
-          </div>
-          <div class="ui padded vertical segment m-padded-tb-large" >
-            <h4><span>SEA</span> - <span>456</span></h4>
-            <div class="ui middle aligned mobile reversed stackable grid">
-              <!-- depart time, arrival time, airlines -->
-              <div class="five wide column">
-                <div class="ui vertical link list">
-                  <div class="m-black item">
-                    <h3>7:40am - 4:01pm</h3>
-                  </div>
-                  <div class="item">
-                    <span>Delta</span>
-                  </div>
-                </div>
-              </div>
-
-              <!-- duration, stops, origin city - dest city -->
-              <div class="five wide column">
-                <div class="ui vertical link list">
-                  <div class="m-black item">
-                    <h3>5 Hours 21 Minutes</h3>
-                  </div>
-                  <div class="item">
-                    <span>Nonstop</span>
-                  </div>
-                </div>
-              </div>
-
-              <div class="three wide column"></div>
-
-              <!-- price, trip type, and select button -->
-              <div class="right aligned three wide column">
-                <div class="ui vertical link list">
-                  <div class="item">
-                    $<span>199</span>
-                  </div>
-                  <div class="item">
-                    <span>Oneway</span>
-                  </div>
-                </div>
-                <a href="#" class="ui yellow button">Select</a>
-              </div>
-            </div>
-
-          </div>
-          <div class="ui padded vertical segment m-padded-tb-large" >
-            <h4><span>SEA</span> - <span>456</span></h4>
-            <div class="ui middle aligned mobile reversed stackable grid">
-              <!-- depart time, arrival time, airlines -->
-              <div class="five wide column">
-                <div class="ui vertical link list">
-                  <div class="m-black item">
-                    <h3>7:40am - 4:01pm</h3>
-                  </div>
-                  <div class="item">
-                    <span>Delta</span>
-                  </div>
-                </div>
-              </div>
-
-              <!-- duration, stops, origin city - dest city -->
-              <div class="five wide column">
-                <div class="ui vertical link list">
-                  <div class="m-black item">
-                    <h3>5 Hours 21 Minutes</h3>
-                  </div>
-                  <div class="item">
-                    <span>Nonstop</span>
-                  </div>
-                </div>
-              </div>
-
-              <div class="three wide column"></div>
-
-              <!-- price, trip type, and select button -->
-              <div class="right aligned three wide column">
-                <div class="ui vertical link list">
-                  <div class="item">
-                    $<span>199</span>
-                  </div>
-                  <div class="item">
-                    <span>Oneway</span>
-                  </div>
-                </div>
-                <a href="#" class="ui yellow button">Select</a>
-              </div>
-            </div>
-
-          </div>
-          <div class="ui padded vertical segment m-padded-tb-large" >
-            <h4><span>SEA</span> - <span>456</span></h4>
-            <div class="ui middle aligned mobile reversed stackable grid">
-              <!-- depart time, arrival time, airlines -->
-              <div class="five wide column">
-                <div class="ui vertical link list">
-                  <div class="m-black item">
-                    <h3>7:40am - 4:01pm</h3>
-                  </div>
-                  <div class="item">
-                    <span>Delta</span>
-                  </div>
-                </div>
-              </div>
-
-              <!-- duration, stops, origin city - dest city -->
-              <div class="five wide column">
-                <div class="ui vertical link list">
-                  <div class="m-black item">
-                    <h3>5 Hours 21 Minutes</h3>
-                  </div>
-                  <div class="item">
-                    <span>Nonstop</span>
-                  </div>
-                </div>
-              </div>
-
-              <div class="three wide column"></div>
-
-              <!-- price, trip type, and select button -->
-              <div class="right aligned three wide column">
-                <div class="ui vertical link list">
-                  <div class="item">
-                    $<span>199</span>
-                  </div>
-                  <div class="item">
-                    <span>Oneway</span>
-                  </div>
-                </div>
-                <a href="#" class="ui yellow button">Select</a>
-              </div>
-            </div>
-
-          </div>
-          <div class="ui padded vertical segment m-padded-tb-large" >
-            <h4><span>SEA</span> - <span>456</span></h4>
-            <div class="ui middle aligned mobile reversed stackable grid">
-              <!-- depart time, arrival time, airlines -->
-              <div class="five wide column">
-                <div class="ui vertical link list">
-                  <div class="m-black item">
-                    <h3>7:40am - 4:01pm</h3>
-                  </div>
-                  <div class="item">
-                    <span>Delta</span>
-                  </div>
-                </div>
-              </div>
-
-              <!-- duration, stops, origin city - dest city -->
-              <div class="five wide column">
-                <div class="ui vertical link list">
-                  <div class="m-black item">
-                    <h3>5 Hours 21 Minutes</h3>
-                  </div>
-                  <div class="item">
-                    <span>Nonstop</span>
-                  </div>
-                </div>
-              </div>
-
-              <div class="three wide column"></div>
-
-              <!-- price, trip type, and select button -->
-              <div class="right aligned three wide column">
-                <div class="ui vertical link list">
-                  <div class="item">
-                    $<span>199</span>
-                  </div>
-                  <div class="item">
-                    <span>Oneway</span>
-                  </div>
-                </div>
-                <a href="#" class="ui yellow button">Select</a>
-              </div>
-            </div>
-
-          </div>
         </div>
 
         <!-- bottom -->
@@ -598,9 +189,7 @@
 <script src="https://cdn.jsdelivr.net/semantic-ui/2.2.4/semantic.min.js"></script>
 
 <script>
-    $('.menu.toggle').click(function () {
-        $('.m-item').toggleClass('m-mobile-hide');
-    });
+    $('.ui.dropdown').dropdown();
 </script>
 </body>
 </html>
