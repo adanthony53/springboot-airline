@@ -1,14 +1,15 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
-<head>
+<head th:replace="_fragments :: head(~{::title})">
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Home</title>
+  <title>Search</title>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/semantic-ui/2.2.4/semantic.min.css" >
   <link rel="stylesheet" href="../static/css/me.css" th:href="@{/css/me.css}">
 </head>
+
 <body>
-<nav class="ui inverted attached segment m-padded-tb-mini m-shadow-small" >
+<nav th:replace="_fragments :: menu(1)" class="ui inverted attached segment m-padded-tb-mini m-shadow-small" >
   <div class="ui container">
     <div class="ui inverted secondary stackable menu">
       <h2 class="ui yellow header item">Tickets</h2>
@@ -24,7 +25,7 @@
 <!--    Middle Content    -->
 <div class="m-container m-padded-tb-big">
   <div class="ui container">
-    <form class="ui secondary segment form" method="post" action="#" th:action="@{/flights/searchUpdate}">
+    <form class="ui secondary segment form" method="post" action="#" th:action="@{/flights/search}">
       <input type="hidden" name="page">
       <div class="inline fields">
         <input type="hidden" name="originCity" th:value="${originCity}">
@@ -86,7 +87,7 @@
         </div>
 
         <!-- content -->
-        <div class="ui attached segment" th:each="flight, fdata : ${flights}">
+        <div th:fragment="searchUpdateResult" class="ui attached segment" th:each="flight, fdata : ${flights}">
           <div class="ui padded vertical segment m-padded-tb-large" >
             <h2><span th:text="${flight.origin_city}">SEA</span> - <span th:text="${flight.dest_city}">456</span></h2>
             <div class="ui middle aligned mobile reversed stackable grid">
@@ -158,7 +159,7 @@
 
 
 <!--   footer  -->
-<footer class="ui inverted vertical segment m-padded-tb-massive">
+<footer th:replace="_fragments :: footer" class="ui inverted vertical segment m-padded-tb-massive">
   <div class="ui center aligned container">
     <div class="ui inverted divided stackable grid">
       <div class="three wide column">

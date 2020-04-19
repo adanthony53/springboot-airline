@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.example.airline.repository.FlightRepository">
+<mapper namespace="com.example.airline.repository.SearchRepository">
 
   <select id="findByFlightNum" parameterType="Integer" resultType="Flight">
   		select * from t_flights_seattle where flight_num = #{flight_num} limit 1
   	</select>
 
   <select id="queryDefault" resultType="Flight">
-    select * from t_flights_seattle
+    select * from t_flights
     where origin_city like #{originCity} '%'
     and dest_city like #{destCity} '%'
     and day_of_month = #{day}
@@ -15,7 +15,7 @@
   </select>
 
   <select id="queryPriceLowestFirst" resultType="Flight">
-    select * from t_flights_seattle
+    select * from t_flights
     where origin_city like #{originCity} '%'
     and dest_city like #{destCity} '%'
     and day_of_month = #{day}
@@ -25,7 +25,7 @@
   </select>
 
   <select id="queryPriceHighestFirst" resultType="Flight">
-    select * from t_flights_seattle
+    select * from t_flights
     where origin_city like #{originCity} '%'
     and dest_city like #{destCity} '%'
     and day_of_month = #{day}
@@ -35,7 +35,7 @@
   </select>
 
   <select id="queryDurationLowestFirst" resultType="Flight">
-    select * from t_flights_seattle
+    select * from t_flights
     where origin_city like #{originCity} '%'
     and dest_city like #{destCity} '%'
     and day_of_month = #{day}
@@ -45,7 +45,7 @@
   </select>
 
   <select id="queryDurationHighestFirst" resultType="Flight">
-    select * from t_flights_seattle
+    select * from t_flights
     where origin_city like #{originCity} '%'
     and dest_city like #{destCity} '%'
     and day_of_month = #{day}

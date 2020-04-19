@@ -5,7 +5,7 @@ import com.example.airline.entity.FlightQuery;
 
 import java.util.List;
 
-public interface FlightService {
+public interface SearchService {
     Flight findByFlightNum(Integer flight_num);
 
     List<Flight> query(FlightQuery flightQuery);

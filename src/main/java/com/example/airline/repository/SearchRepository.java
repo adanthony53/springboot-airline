@@ -5,7 +5,7 @@ import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
-public interface FlightRepository {
+public interface SearchRepository {
     Flight findByFlightNum(Integer flight_num);
 
     List<Flight> queryDefault(@Param("originCity") String originCity, @Param("destCity") String destCity,
