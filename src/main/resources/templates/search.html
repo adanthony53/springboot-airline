@@ -86,7 +86,7 @@
         </div>
 
         <!-- content -->
-        <div class="ui attached segment" th:each="flight, index : ${flights}">
+        <div class="ui attached segment" th:each="flight, fdata : ${flights}">
           <div class="ui padded vertical segment m-padded-tb-large" >
             <h2><span th:text="${flight.origin_city}">SEA</span> - <span th:text="${flight.dest_city}">456</span></h2>
             <div class="ui middle aligned mobile reversed stackable grid">
@@ -97,7 +97,7 @@
                     <h3 th:text="|${flight.carrier_id} ${flight.flight_num}|">AA 222</h3>
                   </div>
                   <div class="item">
-                    <span th:text="${carrierNames[index.index]}">United Airlines</span>
+                    <span th:text="${carrierNames[fdata.index]}">United Airlines</span>
                   </div>
                   <div class="item">
                     <span >Nonstop</span>
