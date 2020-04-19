@@ -6,6 +6,7 @@ import com.example.airline.repository.FlightRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -39,6 +40,15 @@ public class FlightServiceImpl implements FlightService {
                 return flightRepository.queryDurationHighestFirst(flightQuery.getOriginCity(), flightQuery.getDestCity(), day, travelers);
         }
         return flightRepository.queryDefault(flightQuery.getOriginCity(), flightQuery.getDestCity(), day, travelers);
+    }
+
+    @Override
+    public List<String> getCarrierName(List<Flight> query) {
+        List<String> res = new ArrayList<>();
+        for (Flight f : query) {
+            res.add(flightRepository.getCarrierName(f.getCarrier_id()));
+        }
+        return res;
     }
 
 }

@@ -9,4 +9,6 @@ public interface FlightService {
     Flight findByFlightNum(Integer flight_num);
 
     List<Flight> query(FlightQuery flightQuery);
+
+    List<String> getCarrierName(List<Flight> query);
 }

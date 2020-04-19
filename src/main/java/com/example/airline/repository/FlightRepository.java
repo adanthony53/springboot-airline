@@ -18,4 +18,6 @@ public interface FlightRepository {
     List<Flight> queryDurationLowestFirst(String originCity, String destCity, int day, int travelers);
 
     List<Flight> queryDurationHighestFirst(String originCity, String destCity, int day, int travelers);
+
+    String getCarrierName(@Param("carrier_id") String carrier_id);
 }

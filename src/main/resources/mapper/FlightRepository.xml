@@ -54,5 +54,7 @@
     order by actual_time DESC
   </select>
 
-
+  <select id="getCarrierName" parameterType="String" resultType="String">
+    select name from t_carriers where cid = #{carrier_id}
+  </select>
 </mapper>

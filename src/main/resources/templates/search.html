@@ -86,23 +86,34 @@
         </div>
 
         <!-- content -->
-        <div class="ui attached segment" th:each="flight : ${flights}">
+        <div class="ui attached segment" th:each="flight, index : ${flights}">
           <div class="ui padded vertical segment m-padded-tb-large" >
             <h2><span th:text="${flight.origin_city}">SEA</span> - <span th:text="${flight.dest_city}">456</span></h2>
             <div class="ui middle aligned mobile reversed stackable grid">
-              <!-- depart time, arrival time, airlines -->
-              <!-- duration, stops, origin city - dest city -->
-              <div class="twelve wide column">
+              <!-- flight id, flight num, airlines, nonstop -->
+              <div class="six wide column">
+                <div class="ui vertical link list">
+                  <div class="m-black item">
+                    <h3 th:text="|${flight.carrier_id} ${flight.flight_num}|">AA 222</h3>
+                  </div>
+                  <div class="item">
+                    <span th:text="${carrierNames[index.index]}">United Airlines</span>
+                  </div>
+                  <div class="item">
+                    <span >Nonstop</span>
+                  </div>
+                </div>
+              </div>
+              <!-- duration, seats available -->
+              <div class="six wide column">
                 <div class="ui vertical link list">
                   <div class="m-black item">
                     <h3 th:with="hour = ${flight.actual_time / 60}, minute = ${flight.actual_time % 60}" th:text="|Trip duration: ${hour} Hours ${minute} Minutes|">5 Hours 21 Minutes</h3>
                   </div>
                   <div class="item">
-                    <span>Nonstop</span>
+                    <span th:text="|Seats available: ${flight.capacity}|">Seats available: 20</span>
                   </div>
-                  <div class="item">
-                    <span >Delta</span>
-                  </div>
+
                 </div>
               </div>
 

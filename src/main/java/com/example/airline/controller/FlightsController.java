@@ -24,6 +24,7 @@ public class FlightsController {
         model.addAttribute("originCity", flightQuery.getOriginCity());
         model.addAttribute("destCity", flightQuery.getDestCity());
         model.addAttribute("date", flightQuery.getDate());
+        model.addAttribute("carrierNames", flightService.getCarrierName(flightService.query(flightQuery)));
         return "search";
     }
 
@@ -33,6 +34,7 @@ public class FlightsController {
         model.addAttribute("originCity", flightQuery.getOriginCity());
         model.addAttribute("destCity", flightQuery.getDestCity());
         model.addAttribute("date", flightQuery.getDate());
+        model.addAttribute("carrierNames", flightService.getCarrierName(flightService.query(flightQuery)));
         return "search";
     }
 }
