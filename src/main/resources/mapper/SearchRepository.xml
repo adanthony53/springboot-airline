@@ -59,6 +59,6 @@
   </select>
 
   <select id="getFlightByID" resultType="Flight">
-    select * from t_flights_seattle where flight_num = #{flightNumber} and carrier_id = #{carrierID} and day_of_month = #{date}
+    select * from t_flights where flight_num = #{flightNumber} and carrier_id = #{carrierID} and day_of_month = #{date}
   </select>
 </mapper>

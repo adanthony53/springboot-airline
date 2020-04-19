@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:replace="_fragments :: head(~{::title})">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Search</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/semantic-ui/2.2.4/semantic.min.css" >
+  <link rel="stylesheet" href="../static/css/me.css" th:href="@{/css/me.css}">
+</head>
+
+<body>
+<nav th:replace="_fragments :: menu(2)" class="ui inverted attached segment m-padded-tb-mini m-shadow-small" >
+  <div class="ui container">
+    <div class="ui inverted secondary stackable menu">
+      <h2 class="ui yellow header item">Tickets</h2>
+      <a href="#" class="active m-item item m-mobile-hide">Search</a>
+      <a href="#" class="m-item item m-mobile-hide">Detail</a>
+      <div class="ui dropdown right m-item item m-mobile-hide">
+        Account <i class="dropdown icon"></i>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<!--    Middle Content    -->
+<div class="m-container m-padded-tb-big">
+  <div class="ui container">
+    <div class="ui stackable grid">
+      <!--  searching result-->
+
+      <div class="sixteen wide column">
+        <!-- header -->
+        <div class="ui attached segment">
+          <div class="ui middle aligned two column grid">
+            <div class="column">
+              <h3 class="ui yellow header" th:text="|Searching flights to ${flights[0].dest_city}|">Searching flights based on ID and number</h3>
+            </div>
+            <div class="right aligned column">
+              Total: <h2 class="ui orange header m-inline-block m-text-thin" th:text="${#arrays.length(flights)}" >99</h2> flights found
+            </div>
+          </div>
+        </div>
+
+        <!-- content -->
+        <div th:fragment="searchUpdateResult" class="ui attached segment" th:each="flight, fdata : ${flights}">
+          <div class="ui padded vertical segment m-padded-tb-large" >
+            <h2><span th:text="${flight.carrier_id}">AA</span> <span th:text="${flight.flight_num}">333</span></h2>
+            <div class="ui middle aligned mobile reversed stackable grid">
+              <!-- flight id, flight num, airlines, nonstop -->
+              <div class="six wide column">
+                <div class="ui vertical link list">
+                  <div class="m-black item">
+                    <h3 th:text="|From ${flight.origin_city} to ${flight.dest_city}|">From Seattle, WA to Los Angeles, CA</h3>
+                  </div>
+                  <div class="item">
+                    <span th:text="${carrierNames[fdata.index]}">United Airlines</span>
+                  </div>
+                  <div class="item">
+                    <span th:with="hour = ${flight.actual_time / 60}, minute = ${flight.actual_time % 60}" th:text="|Trip duration: ${hour} Hours ${minute} Minutes|">5 Hours 21 Minutes</span>
+                  </div>
+                  <div class="item">
+                    <span th:text="|Seats available: ${flight.capacity}|">Seats available: 20</span>
+                  </div>
+                </div>
+              </div>
+              <!-- duration, seats available -->
+              <div class="six wide column">
+                <div class="ui vertical link list">
+                  <div class="m-black item">
+                    <h3 th:text="|Current status: canceled|" th:if="${flight.canceled == 1}">Current status: canceled</h3>
+                    <h3 th:text="|Current status: flying|" th:if="${flight.canceled == 0}">Current status: flying</h3>
+                  </div>
+                  <div class="item">
+                    <span th:text="|Departure delay: ${flight.departure_delay} minutes|" th:if="${flight.departure_delay} > 0">Departure delay: 60 minutes</span>
+                  </div>
+                  <div class="item">
+                    <span th:text="|Arrival delay: ${flight.arrival_delay} minutes|" th:if="${flight.arrival_delay} > 0">Arrival delay: 30 minutes</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- price, trip type, and select button -->
+              <div class="right aligned four wide column">
+                <div class="ui vertical link list">
+                  <div class="item">
+                    $<span th:text="${flight.price}">199</span>
+                  </div>
+                  <div class="item">
+                    <span th:text="|${flight.taxi_out} minutes away from downtown|">15 minutes away from downtown</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+
+<!--   footer  -->
+<footer th:replace="_fragments :: footer" class="ui inverted vertical segment m-padded-tb-massive">
+  <div class="ui center aligned container">
+    <div class="ui inverted divided stackable grid">
+      <div class="three wide column">
+        <div class="ui inverted link list">
+          <div class="item">
+            <img src="../static/images/icon.png" th:src="@{/images/icon.png}" class="ui rounded image" alt="" style="width: 110px">
+          </div>
+        </div>
+      </div>
+      <div class="three wide column">
+        <h4 class="ui inverted header m-text-thin m-text-spaced " >Newest</h4>
+        <div class="ui inverted link list">
+          <a href="#" class="item m-text-thin">User Story</a>
+          <a href="#" class="item m-text-thin">User Story</a>
+          <a href="#" class="item m-text-thin">User Story</a>
+        </div>
+      </div>
+      <div class="three wide column">
+        <h4 class="ui inverted header m-text-thin m-text-spaced " >Contact</h4>
+        <div class="ui inverted link list">
+          <a href="#" class="item m-text-thin">Email</a>
+          <a href="#" class="item m-text-thin">LinkedIn</a>
+          <a href="#" class="item m-text-thin">Github</a>
+        </div>
+      </div>
+      <div class="seven wide column">
+        <h4 class="ui inverted header m-text-thin m-text-spaced">About Me</h4>
+        <div class="ui inverted link list">
+          <p class="m-text-thin m-text-spaced m-opacity-mini">大可不必了解我，看我笑话就好...</p>
+        </div>
+      </div>
+    </div>
+    <div class="ui inverted section divider"></div>
+    <p class="m-text-thin m-text-spaced m-opacity-tiny">Copyright © </p>
+  </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.2/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/semantic-ui/2.2.4/semantic.min.js"></script>
+
+<script>
+    $('.ui.dropdown').dropdown();
+</script>
+</body>
+</html>

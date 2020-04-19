@@ -38,6 +38,7 @@ public class SearchController {
         System.out.println(detailQuery.toString());
         List<Flight> list = searchService.queryDetail(detailQuery);
         model.addAttribute("flights", searchService.queryDetail(detailQuery));
-        return "detail";
+        model.addAttribute("carrierNames", searchService.getCarrierName(searchService.queryDetail(detailQuery)));
+        return "detailList";
     }
 }
