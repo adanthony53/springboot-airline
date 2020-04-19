@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.example.airline.repository.DetailRepository">
-
-  <select id="getFlightByID" parameterType="String" resultType="Flight">
-    select * from t_flights_seattle as f , t_carriers as c where c.cid = f.carrier_id and f.flight_num = 123 and f.carrier_id = 'AS' and f.day_of_month = 3
-  </select>
-</mapper>

@@ -5,7 +5,6 @@ import lombok.Data;
 @Data
 public class DetailQuery {
 
-    private String carrierName;
     private String carrierID;
     private String flightNumber;
     private String date;

@@ -1,10 +1,12 @@
 package com.example.airline.service;
 
+import com.example.airline.entity.DetailQuery;
 import com.example.airline.entity.Flight;
 import com.example.airline.entity.FlightQuery;
 import com.example.airline.repository.SearchRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.ui.Model;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -49,6 +51,12 @@ public class SearchServiceImpl implements SearchService {
             res.add(searchRepository.getCarrierName(f.getCarrier_id()));
         }
         return res;
+    }
+
+    @Override
+    public List<Flight> queryDetail(DetailQuery detailQuery) {
+        int day = Integer.valueOf(detailQuery.getDate().split("-")[1]);
+        return searchRepository.getFlightByID(detailQuery.getCarrierID(), detailQuery.getFlightNumber(), day);
     }
 
 }
