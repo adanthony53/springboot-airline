@@ -58,4 +58,14 @@ public class SearchServiceImpl implements SearchService {
         return searchRepository.getFlightByID(detailQuery.getCarrierID(), detailQuery.getFlightNumber(), day);
     }
 
+    @Override
+    public Flight findByFid(String id) {
+        return searchRepository.findByFid(Long.parseLong(id));
+    }
+
+    @Override
+    public void orderByIdCount(String id, String count) {
+        searchRepository.orderByIdCount(Long.parseLong(id), Long.parseLong(count));
+    }
+
 }

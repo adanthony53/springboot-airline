@@ -14,4 +14,8 @@ public interface SearchService {
     List<String> getCarrierName(List<Flight> query);
 
     List<Flight> queryDetail(DetailQuery detailQuery);
+
+    Flight findByFid(String id);
+
+    void orderByIdCount(String id, String count);
 }

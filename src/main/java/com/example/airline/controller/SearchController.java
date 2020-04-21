@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 
@@ -25,7 +26,25 @@ public class SearchController {
         model.addAttribute("destCity", flightQuery.getDestCity());
         model.addAttribute("date", flightQuery.getDate());
         model.addAttribute("carrierNames", searchService.getCarrierName(searchService.query(flightQuery)));
+        model.addAttribute("count", flightQuery.getTravelers());
         return "search";
+    }
+
+    @GetMapping("/order/{id}/{count}")
+    public String order(@PathVariable("id") String id,
+                        @PathVariable("count") String count,
+                        Model model) {
+        Flight f = searchService.findByFid(id);
+        model.addAttribute("flight", f);
+        model.addAttribute("count", count);
+        return "order";
+    }
+
+    @GetMapping("/confirm/{id}/{count}")
+    public String confirm(@PathVariable("id") String id, @PathVariable("count") String count) {
+        System.out.println("flight id: " + id + " - count: " + count);
+        searchService.orderByIdCount(id, count);
+        return "index";
     }
 
     @GetMapping("/detail")
@@ -41,4 +60,6 @@ public class SearchController {
         model.addAttribute("carrierNames", searchService.getCarrierName(searchService.queryDetail(detailQuery)));
         return "detailList";
     }
+
+
 }

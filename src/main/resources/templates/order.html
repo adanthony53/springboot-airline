@@ -3,7 +3,7 @@
 <head th:replace="_fragments :: head(~{::title})">
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Search</title>
+  <title>Order</title>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/semantic-ui/2.2.4/semantic.min.css" >
   <link rel="stylesheet" href="../static/css/me.css" th:href="@{/css/me.css}">
 </head>
@@ -25,83 +25,29 @@
 <!--    Middle Content    -->
 <div class="m-container m-padded-tb-big">
   <div class="ui container">
-    <form class="ui secondary segment form" method="post" action="#" th:action="@{/flights/search}">
-      <input type="hidden" name="page">
-      <div class="inline fields">
-        <input type="hidden" name="originCity" th:value="${originCity}">
-        <input type="hidden" name="destCity" th:value="${destCity}">
-        <input type="hidden" name="date" th:value="${date}">
-        <div class="field">
-          <select class="ui dropdown" type="text" name="sort">
-            <option value="0">Sort</option>
-            <option value="1">Price (Lowest first)</option>
-            <option value="2">Price (Highest first)</option>
-            <option value="3">Duration (Lowest first)</option>
-            <option value="4">Duration (Highest first)</option>
-          </select>
-        </div>
-        <div class="field">
-          <select class="ui dropdown" type="text" name="stops">
-            <option value="0">Stops</option>
-            <option value="0">Nonstop</option>
-            <option value="1">1 stop</option>
-            <option value="2">2+ stops</option>
-          </select>
-        </div>
-        <div class="field">
-          <select class="ui dropdown" type="text" name="travelers">
-            <option value="1">Number</option>
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-            <option value="4">4</option>
-            <option value="5">5</option>
-            <option value="6">6</option>
-            <option value="7">7</option>
-            <option value="8">8</option>
-            <option value="9">9</option>
-            <option value="10">10+</option>
-          </select>
-        </div>
-        <div class="field">
-          <button type="submit" id="search-btn" class="ui mini yellow button"><i class="search icon"></i>Search</button>
-        </div>
-      </div>
-    </form>
-
-
     <div class="ui stackable grid">
       <!--  searching result-->
 
       <div class="sixteen wide column">
-        <!-- header -->
-        <div class="ui attached segment">
-          <div class="ui middle aligned two column grid">
-            <div class="column">
-              <h3 class="ui yellow header" th:text="|Searching flights to ${flights[0].dest_city}|">Searching flights to $destCity</h3>
-            </div>
-            <div class="right aligned column">
-              Total: <h2 class="ui orange header m-inline-block m-text-thin" th:text="${#arrays.length(flights)}" >99</h2> flights
-            </div>
-          </div>
-        </div>
-
         <!-- content -->
-        <div th:fragment="searchUpdateResult" class="ui attached segment" th:each="flight, fdata : ${flights}">
+        <div class="ui attached segment">
           <div class="ui padded vertical segment m-padded-tb-large" >
-            <h2><span th:text="${flight.origin_city}">SEA</span> - <span th:text="${flight.dest_city}">456</span></h2>
+            <h2><span th:text="${flight.carrier_id}">AA</span> <span th:text="${flight.flight_num}">333</span></h2>
             <div class="ui middle aligned mobile reversed stackable grid">
               <!-- flight id, flight num, airlines, nonstop -->
               <div class="six wide column">
                 <div class="ui vertical link list">
                   <div class="m-black item">
-                    <h3 th:text="|${flight.carrier_id} ${flight.flight_num}|">AA 222</h3>
+                    <h3 th:text="|From ${flight.origin_city} to ${flight.dest_city}|">From Seattle, WA to Los Angeles, CA</h3>
                   </div>
                   <div class="item">
-                    <span th:text="${carrierNames[fdata.index]}">United Airlines</span>
+                    <span>United Airlines</span>
                   </div>
                   <div class="item">
-                    <span >Nonstop</span>
+                    <span th:with="hour = ${flight.actual_time / 60}, minute = ${flight.actual_time % 60}" th:text="|Trip duration: ${hour} Hours ${minute} Minutes|">5 Hours 21 Minutes</span>
+                  </div>
+                  <div class="item">
+                    <span th:text="|Seats available: ${flight.capacity}|">Seats available: 20</span>
                   </div>
                 </div>
               </div>
@@ -109,12 +55,15 @@
               <div class="six wide column">
                 <div class="ui vertical link list">
                   <div class="m-black item">
-                    <h3 th:with="hour = ${flight.actual_time / 60}, minute = ${flight.actual_time % 60}" th:text="|Trip duration: ${hour} Hours ${minute} Minutes|">5 Hours 21 Minutes</h3>
+                    <h3 th:text="|Current status: canceled|" th:if="${flight.canceled == 1}">Current status: canceled</h3>
+                    <h3 th:text="|Current status: flying|" th:if="${flight.canceled == 0}">Current status: flying</h3>
                   </div>
                   <div class="item">
-                    <span th:text="|Seats available: ${flight.capacity}|">Seats available: 20</span>
+                    <span th:text="|Departure delay: ${flight.departure_delay} minutes|" th:if="${flight.departure_delay} > 0">Departure delay: 60 minutes</span>
                   </div>
-
+                  <div class="item">
+                    <span th:text="|Arrival delay: ${flight.arrival_delay} minutes|" th:if="${flight.arrival_delay} > 0">Arrival delay: 30 minutes</span>
+                  </div>
                 </div>
               </div>
 
@@ -125,33 +74,36 @@
                     $<span th:text="${flight.price}">199</span>
                   </div>
                   <div class="item">
-                    <span>Oneway</span>
+                    <span th:text="|${flight.taxi_out} minutes away from downtown|">15 minutes away from downtown</span>
                   </div>
                 </div>
-                <a href="#" th:href="@{/flights/order/{id}/{count} (id=${flight.fid}, count=${count})}" class="ui yellow button">Select</a>
               </div>
             </div>
-
           </div>
-
         </div>
-
-        <!-- bottom -->
-        <div class="ui bottom attached segment" >
-          <div class="ui middle aligned two column grid">
-            <div class="column">
-              <a href="#" class="ui mini yellow basic button">Previous</a>
-            </div>
-            <div class="right aligned column">
-              <a href="#" class="ui mini yellow basic button">Next</a>
-            </div>
-          </div>
+        <div class="ui attached segment">
+          <h3 th:text="|Total: ${count} tickets|">Total: ${count} tickets</h3>
+          <h5 th:with="price = ${flight.price} * ${count}" th:text="|Total amount: ${price}|">Total amount: 599</h5>
+          <a href="#" th:href="@{/flights/confirm/{id}/{count} (id=${flight.fid}, count=${count})}" class="ui yellow button">Confirm</a>
         </div>
       </div>
     </div>
   </div>
 </div>
 
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
 <br>
 <br>
 <br>

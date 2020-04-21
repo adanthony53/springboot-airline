@@ -61,4 +61,12 @@
   <select id="getFlightByID" resultType="Flight">
     select * from t_flights where flight_num = #{flightNumber} and carrier_id = #{carrierID} and day_of_month = #{date}
   </select>
+
+  <select id="findByFid" resultType="Flight">
+    select * from t_flights where fid = #{id}
+  </select>
+
+  <select id="orderByIdCount">
+    update t_flights_seattle set capacity = capacity - #{count} where fid = #{id}
+  </select>
 </mapper>

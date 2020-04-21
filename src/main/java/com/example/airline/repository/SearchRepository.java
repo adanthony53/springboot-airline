@@ -24,4 +24,8 @@ public interface SearchRepository {
     List<Flight> getFlightByID(@Param("carrierID") String carrierID,
                                @Param("flightNumber") String flightNumber,
                                @Param("date") Integer date);
+
+    Flight findByFid(Long id);
+
+    void orderByIdCount(@Param("id") Long id, @Param("count") Long count);
 }
