@@ -22,7 +22,6 @@ public class SearchServiceImpl implements SearchService {
         return searchRepository.findByFlightNum(flight_num);
     }
 
-
     @Override
     public List<Flight> query(FlightQuery flightQuery) {
         int day = Integer.valueOf(flightQuery.getDate().split("-")[1]);

@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpSession;
+
 @Controller
 @RequestMapping("/user")
 public class UserController {
@@ -28,14 +30,19 @@ public class UserController {
 
     @PostMapping("/login")
     public String login(@RequestParam("username") String username,
-                        @RequestParam("password") String password) {
-        System.out.println(username + ", " + password);
+                        @RequestParam("password") String password,
+                        HttpSession session) {
+        //System.out.println(username + ", " + password);
         User user = userService.login(username, password);
-        if (user == null) {
-            System.out.println("login failed");
-        } else {
-            System.out.println("login succeed");
-        }
+        if (user == null) { return "login"; } //System.out.println("login failed");
+        //System.out.println("login succeed");
+        session.setAttribute("user", user);
+        return "index";
+    }
+
+    @GetMapping("/logout")
+    public String logout(HttpSession session) {
+        session.removeAttribute("user");
         return "index";
     }
 }
