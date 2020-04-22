@@ -38,7 +38,7 @@ public class UserController {
         List<Long> fids = orderService.getFidsByUsername(user.getUsername());
         List<Flight> flights = searchService.getFlightsByFid(fids);
         model.addAttribute("flights", flights);
-
+        return "user_order";
     }
 
     @PostMapping("/register")
@@ -58,11 +58,6 @@ public class UserController {
         //System.out.println("login succeed");
         session.setAttribute("user", user);
         return "index";
-    }
-
-    @PostMapping("/order")
-    public String order() {
-        return "";
     }
 
     @GetMapping("/logout")

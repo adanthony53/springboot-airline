@@ -22,7 +22,7 @@
         <i class="dropdown icon"></i>
         <div class="menu">
           <a href="#" th:if="${session.user == null}" th:href="@{/user/login}" class="item">Sign in</a>
-          <a href="#" th:if="${session.user != null}" th:href="@{/user/order/{username} ($)" class="item" >Orders</a>
+          <a href="#" th:if="${session.user != null}" th:href="@{/user/order}" class="item" >Itineraries</a>
           <a href="#" th:if="${session.user != null}" th:href="@{/user/logout}" class="item">Sign out</a>
         </div>
       </div>
