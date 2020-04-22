@@ -44,7 +44,8 @@
         <!-- content -->
         <div class="ui attached segment" th:each="flight : ${flights}">
           <div class="ui padded vertical segment m-padded-tb-large" >
-            <h2><span th:text="${flight.carrier_id}">AA</span> <span th:text="${flight.flight_num}">333</span></h2>
+            <h3><span th:text="|${flight.carrier_id} ${flight.flight_num}|">AA 333</span>    <span th:text="|${flight.month_id}/${flight.day_of_month}/2019|">7/19/2019</span></h3>
+
             <div class="ui middle aligned mobile reversed stackable grid">
               <!-- flight id, flight num, airlines, nonstop -->
               <div class="six wide column">
