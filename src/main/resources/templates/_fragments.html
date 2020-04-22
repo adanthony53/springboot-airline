@@ -14,7 +14,6 @@
       <h2 class="ui yellow header item">Tickets</h2>
       <a href="#" th:href="@{/}" class="m-item item m-mobile-hide" th:classappend="${n==1} ? 'active'">Search</a>
       <a href="#" th:href="@{/flights/detail}" class="m-item item m-mobile-hide" th:classappend="${n==2} ? 'active'">Detail</a>
-
       <div class="ui dropdown right m-item item m-mobile-hide">
         <div class="text">
           <span th:if="${session.user == null}">Account</span>
@@ -23,13 +22,10 @@
         <i class="dropdown icon"></i>
         <div class="menu">
           <a href="#" th:if="${session.user == null}" th:href="@{/user/login}" class="item">Sign in</a>
-          <a href="#" th:if="${session.user != null}" th:href="@{/user/order}" class="item" >Orders</a>
+          <a href="#" th:if="${session.user != null}" th:href="@{/user/order/{username} ($)" class="item" >Orders</a>
           <a href="#" th:if="${session.user != null}" th:href="@{/user/logout}" class="item">Sign out</a>
         </div>
       </div>
-
-
-
     </div>
   </div>
 </nav>

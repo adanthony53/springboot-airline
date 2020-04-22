@@ -64,8 +64,13 @@ public class SearchServiceImpl implements SearchService {
     }
 
     @Override
-    public void orderByIdCount(String id, String count) {
-        searchRepository.orderByIdCount(Long.parseLong(id), Long.parseLong(count));
+    public List<Flight> getFlightsByFid(List<Long> fids) {
+        List<Flight> res = new ArrayList<>();
+        for (Long id : fids) {
+            res.add(searchRepository.findByFid(id));
+        }
+        return res;
     }
+
 
 }

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.airline.repository.OrderRepository">
+  <insert id="saveOrder" parameterType="Order">
+    insert into t_order (username, fid, count) values (#{username}, #{fid}, #{count})
+  </insert>
+
+  <select id="orderByIdCount">
+    update t_flights_seattle set capacity = capacity - #{count} where fid = #{id}
+  </select>
+
+  <select id="getFidsByUsername" parameterType="String" resultType="Long">
+    select fid from t_order where username = #{username}
+  </select>
+</mapper>

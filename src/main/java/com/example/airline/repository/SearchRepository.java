@@ -27,5 +27,5 @@ public interface SearchRepository {
 
     Flight findByFid(Long id);
 
-    void orderByIdCount(@Param("id") Long id, @Param("count") Long count);
+
 }

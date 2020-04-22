@@ -1,12 +1,17 @@
 package com.example.airline.controller;
 
+import com.example.airline.entity.Flight;
 import com.example.airline.entity.User;
+import com.example.airline.service.OrderService;
+import com.example.airline.service.SearchService;
 import com.example.airline.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
+import java.util.List;
 
 @Controller
 @RequestMapping("/user")
@@ -15,11 +20,26 @@ public class UserController {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private OrderService orderService;
+
+    @Autowired
+    private SearchService searchService;
+
     @GetMapping("/register")
     public String registerPage() { return "register"; }
 
     @GetMapping("/login")
     public String loginPage() { return "login"; }
+
+    @GetMapping("/order")
+    public String orderPage(HttpSession session, Model model) {
+        User user = (User) session.getAttribute("user");
+        List<Long> fids = orderService.getFidsByUsername(user.getUsername());
+        List<Flight> flights = searchService.getFlightsByFid(fids);
+        model.addAttribute("flights", flights);
+
+    }
 
     @PostMapping("/register")
     public String register(@RequestParam("username") String username,
@@ -38,6 +58,11 @@ public class UserController {
         //System.out.println("login succeed");
         session.setAttribute("user", user);
         return "index";
+    }
+
+    @PostMapping("/order")
+    public String order() {
+        return "";
     }
 
     @GetMapping("/logout")

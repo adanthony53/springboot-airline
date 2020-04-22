@@ -3,13 +3,13 @@
 <head th:replace="_fragments :: head(~{::title})">
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Search</title>
+  <title>Detail</title>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/semantic-ui/2.2.4/semantic.min.css" >
   <link rel="stylesheet" href="../static/css/me.css" th:href="@{/css/me.css}">
 </head>
 
 <body>
-<nav th:replace="_fragments :: menu(2)" class="ui inverted attached segment m-padded-tb-mini m-shadow-small" >
+<nav th:replace="_fragments :: menu(0)" class="ui inverted attached segment m-padded-tb-mini m-shadow-small" >
   <div class="ui container">
     <div class="ui inverted secondary stackable menu">
       <h2 class="ui yellow header item">Tickets</h2>
@@ -33,33 +33,33 @@
         <div class="ui attached segment">
           <div class="ui middle aligned two column grid">
             <div class="column">
-              <h3 class="ui yellow header" th:text="|Searching flights to ${flights[0].dest_city}|">Searching flights based on ID and number</h3>
+              <h3 class="ui yellow header" >You have the following itineraries</h3>
             </div>
             <div class="right aligned column">
-              Total: <h2 class="ui orange header m-inline-block m-text-thin" th:text="${#arrays.length(flights)}" >99</h2> flights found
+              Total: <h2 class="ui orange header m-inline-block m-text-thin" >99</h2> flights found
             </div>
           </div>
         </div>
 
         <!-- content -->
-        <div th:fragment="searchUpdateResult" class="ui attached segment" th:each="flight, fdata : ${flights}">
+        <div  class="ui attached segment">
           <div class="ui padded vertical segment m-padded-tb-large" >
-            <h2><span th:text="${flight.carrier_id}">AA</span> <span th:text="${flight.flight_num}">333</span></h2>
+            <h2><span>AA</span> <span >333</span></h2>
             <div class="ui middle aligned mobile reversed stackable grid">
               <!-- flight id, flight num, airlines, nonstop -->
               <div class="six wide column">
                 <div class="ui vertical link list">
                   <div class="m-black item">
-                    <h3 th:text="|From ${flight.origin_city} to ${flight.dest_city}|">From Seattle, WA to Los Angeles, CA</h3>
+                    <h3 >From Seattle, WA to Los Angeles, CA</h3>
                   </div>
                   <div class="item">
-                    <span th:text="${carrierNames[fdata.index]}">United Airlines</span>
+                    <span>United Airlines</span>
                   </div>
                   <div class="item">
-                    <span th:with="hour = ${flight.actual_time / 60}, minute = ${flight.actual_time % 60}" th:text="|Trip duration: ${hour} Hours ${minute} Minutes|">5 Hours 21 Minutes</span>
+                    <span  >5 Hours 21 Minutes</span>
                   </div>
                   <div class="item">
-                    <span th:text="|Seats available: ${flight.capacity}|">Seats available: 20</span>
+                    <span >Seats available: 20</span>
                   </div>
                 </div>
               </div>
@@ -67,14 +67,14 @@
               <div class="six wide column">
                 <div class="ui vertical link list">
                   <div class="m-black item">
-                    <h3 th:text="|Current status: canceled|" th:if="${flight.canceled == 1}">Current status: canceled</h3>
-                    <h3 th:text="|Current status: flying|" th:if="${flight.canceled == 0}">Current status: flying</h3>
+                    <h3>Current status: canceled</h3>
+                    <h3>Current status: flying</h3>
                   </div>
                   <div class="item">
-                    <span th:text="|Departure delay: ${flight.departure_delay} minutes|" th:if="${flight.departure_delay} > 0">Departure delay: 60 minutes</span>
+                    <span >Departure delay: 60 minutes</span>
                   </div>
                   <div class="item">
-                    <span th:text="|Arrival delay: ${flight.arrival_delay} minutes|" th:if="${flight.arrival_delay} > 0">Arrival delay: 30 minutes</span>
+                    <span >Arrival delay: 30 minutes</span>
                   </div>
                 </div>
               </div>
@@ -83,10 +83,10 @@
               <div class="right aligned four wide column">
                 <div class="ui vertical link list">
                   <div class="item">
-                    $<span th:text="${flight.price}">199</span>
+                    $<span >199</span>
                   </div>
                   <div class="item">
-                    <span th:text="|${flight.taxi_out} minutes away from downtown|">15 minutes away from downtown</span>
+                    <span >15 minutes away from downtown</span>
                   </div>
                 </div>
               </div>

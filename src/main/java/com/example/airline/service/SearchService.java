@@ -17,5 +17,5 @@ public interface SearchService {
 
     Flight findByFid(String id);
 
-    void orderByIdCount(String id, String count);
+    List<Flight> getFlightsByFid(List<Long> fids);
 }

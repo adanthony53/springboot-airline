@@ -66,7 +66,4 @@
     select * from t_flights where fid = #{id}
   </select>
 
-  <select id="orderByIdCount">
-    update t_flights_seattle set capacity = capacity - #{count} where fid = #{id}
-  </select>
 </mapper>

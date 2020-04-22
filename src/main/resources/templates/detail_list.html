@@ -3,13 +3,13 @@
 <head th:replace="_fragments :: head(~{::title})">
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Order</title>
+  <title>Detail</title>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/semantic-ui/2.2.4/semantic.min.css" >
   <link rel="stylesheet" href="../static/css/me.css" th:href="@{/css/me.css}">
 </head>
 
 <body>
-<nav th:replace="_fragments :: menu(1)" class="ui inverted attached segment m-padded-tb-mini m-shadow-small" >
+<nav th:replace="_fragments :: menu(2)" class="ui inverted attached segment m-padded-tb-mini m-shadow-small" >
   <div class="ui container">
     <div class="ui inverted secondary stackable menu">
       <h2 class="ui yellow header item">Tickets</h2>
@@ -29,8 +29,20 @@
       <!--  searching result-->
 
       <div class="sixteen wide column">
-        <!-- content -->
+        <!-- header -->
         <div class="ui attached segment">
+          <div class="ui middle aligned two column grid">
+            <div class="column">
+              <h3 class="ui yellow header" th:text="|Searching flights to ${flights[0].dest_city}|">Searching flights based on ID and number</h3>
+            </div>
+            <div class="right aligned column">
+              Total: <h2 class="ui orange header m-inline-block m-text-thin" th:text="${#arrays.length(flights)}" >99</h2> flights found
+            </div>
+          </div>
+        </div>
+
+        <!-- content -->
+        <div th:fragment="searchUpdateResult" class="ui attached segment" th:each="flight, fdata : ${flights}">
           <div class="ui padded vertical segment m-padded-tb-large" >
             <h2><span th:text="${flight.carrier_id}">AA</span> <span th:text="${flight.flight_num}">333</span></h2>
             <div class="ui middle aligned mobile reversed stackable grid">
@@ -41,7 +53,7 @@
                     <h3 th:text="|From ${flight.origin_city} to ${flight.dest_city}|">From Seattle, WA to Los Angeles, CA</h3>
                   </div>
                   <div class="item">
-                    <span>United Airlines</span>
+                    <span th:text="${carrierNames[fdata.index]}">United Airlines</span>
                   </div>
                   <div class="item">
                     <span th:with="hour = ${flight.actual_time / 60}, minute = ${flight.actual_time % 60}" th:text="|Trip duration: ${hour} Hours ${minute} Minutes|">5 Hours 21 Minutes</span>
@@ -81,26 +93,11 @@
             </div>
           </div>
         </div>
-        <div class="ui attached segment" th:if="${session.user != null}">
-          <h3 th:text="|Total: ${count} tickets|">Total: ${count} tickets</h3>
-          <h5 th:with="price = ${flight.price} * ${count}" th:text="|Total amount: ${price}|">Total amount: 599</h5>
-          <a href="#" th:href="@{/flights/confirm/{username}/{id}/{count} (username=${session.user.username}, id=${flight.fid}, count=${count})}" class="ui yellow button">Confirm</a>
-        </div>
-        <div class="ui attached segment" th:if="${session.user == null}">
-          <p>Please sign into your account first before ordering tickets, thanks!</p>
-        </div>
       </div>
     </div>
   </div>
 </div>
 
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
 <br>
 <br>
 <br>
